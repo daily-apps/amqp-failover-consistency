@@ -1,0 +1,1 @@
+![Architecture Diagram](https://gitlab.com/guide-apps/amqp-failover-consistency/raw/master/doc/architecture-diagram.png)
