@@ -4,7 +4,7 @@ package com.guideapps.notifications;
  * Hello world!
  *
  */
-public class App 
+public class NotificationsApplication 
 {
     public static void main( String[] args )
     {

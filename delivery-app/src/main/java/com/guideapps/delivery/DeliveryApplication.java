@@ -4,7 +4,7 @@ package com.guideapps.delivery;
  * Hello world!
  *
  */
-public class App 
+public class DeliveryApplication 
 {
     public static void main( String[] args )
     {
