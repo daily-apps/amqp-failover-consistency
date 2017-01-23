@@ -1,4 +1,4 @@
-package com.guideapps;
+package com.guideapps.delivery;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

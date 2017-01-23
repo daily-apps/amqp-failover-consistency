@@ -1,4 +1,4 @@
-package com.guideapps;
+package com.guideapps.checkout;
 
 /**
  * Hello world!
