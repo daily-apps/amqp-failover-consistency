@@ -4,7 +4,7 @@ package com.guideapps.checkout;
  * Hello world!
  *
  */
-public class App 
+public class CheckoutApplication 
 {
     public static void main( String[] args )
     {
