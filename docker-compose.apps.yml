@@ -1,0 +1,43 @@
+version: '2'
+services:
+  checkout_app:
+    build: ./checkout-app
+    command: sh -c "mvn clean package && java -jar target/checkout-app.jar"
+    volumes:
+      - ./checkout-app:/app
+    ports:
+      - "9010:8080"
+    depends_on:
+      - checkout_db
+      - rabbitmq_server
+  delivery_app:
+    build: ./delivery-app
+    command: sh -c "mvn clean package && java -jar target/delivery-app.jar"
+    volumes:
+      - ./delivery-app:/app
+    ports:
+      - "9020:8080"
+    depends_on:
+      - delivery_db
+      - rabbitmq_server
+  reports_app:
+    build: ./reports-app
+    command: sh -c "mvn clean package && java -jar target/reports-app.jar"
+    volumes:
+      - ./reports-app:/app
+    ports:
+      - "9030:8080"
+    depends_on:
+      - reports_db
+      - rabbitmq_server
+  notifications_app:
+    build: ./notifications-app
+    command: sh -c "mvn clean package && java -jar target/notifications-app.jar"
+    volumes:
+      - ./notifications-app:/app
+    ports:
+      - "9040:8080"
+    depends_on:
+      - notifications_db
+      - rabbitmq_server
+      - mail_server

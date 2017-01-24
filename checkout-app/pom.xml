@@ -5,8 +5,6 @@
 	<groupId>com.guideapps</groupId>
 	<artifactId>checkout-app</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
 	<name>checkout-app</name>
 	<url>http://maven.apache.org</url>
 
@@ -27,18 +25,25 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<finalName>checkout-app</finalName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.6.1</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.3</version>
+				<version>2.4.3</version>
 				<configuration>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 				</configuration>
