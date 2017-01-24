@@ -9,7 +9,7 @@ services:
       - "9010:8080"
     depends_on:
       - checkout_db
-      - rabbitmq_server
+      - rabbitmq_master
   delivery_app:
     build: ./delivery-app
     command: sh -c "mvn clean package && java -jar target/delivery-app.jar"
@@ -19,7 +19,7 @@ services:
       - "9020:8080"
     depends_on:
       - delivery_db
-      - rabbitmq_server
+      - rabbitmq_master
   reports_app:
     build: ./reports-app
     command: sh -c "mvn clean package && java -jar target/reports-app.jar"
@@ -29,7 +29,7 @@ services:
       - "9030:8080"
     depends_on:
       - reports_db
-      - rabbitmq_server
+      - rabbitmq_master
   notifications_app:
     build: ./notifications-app
     command: sh -c "mvn clean package && java -jar target/notifications-app.jar"
@@ -39,5 +39,5 @@ services:
       - "9040:8080"
     depends_on:
       - notifications_db
-      - rabbitmq_server
+      - rabbitmq_master
       - mail_server
