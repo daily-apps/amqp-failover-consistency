@@ -30,12 +30,16 @@ services:
       - "54324:5432"
   rabbitmq_master:
     image: rabbitmq:3-management
+    hostname: rabbitmq_master
     environment:
       - RABBITMQ_ERLANG_COOKIE="clusteramqp-01-2017"
     ports:
       - "8080:15672"
+    depends_on:
+      - rabbitmq_slave
   rabbitmq_slave:
     image: rabbitmq:3-management
+    hostname: rabbitmq_slave
     environment:
       - RABBITMQ_ERLANG_COOKIE="clusteramqp-01-2017"
     ports:
