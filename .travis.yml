@@ -1,0 +1,11 @@
+sudo: required
+language: java
+services:
+  - docker
+install:
+  - sudo pip install docker-compose
+
+script:
+  - ls -lah
+  - docker-compose version
+  - docker-compose ps
