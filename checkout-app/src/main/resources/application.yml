@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: ci
+    active: test
   application:
     name: '@artifactId@'
     version: '@project.version@'

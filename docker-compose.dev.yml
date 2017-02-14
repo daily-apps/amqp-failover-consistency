@@ -1,0 +1,43 @@
+version: '2'
+services:
+  checkout_app:
+    build: ./checkout-app
+    command: mvn spring-boot:run -Drun.profiles=dev
+    volumes:
+      - ./checkout-app:/app
+    ports:
+      - "9010:8080"
+    depends_on:
+      - checkout_db
+      - rabbitmq_master
+  gateway_app:
+    build: ./gateway-app
+    command: mvn spring-boot:run -Drun.profiles=dev
+    volumes:
+      - ./gateway-app:/app
+    ports:
+      - "9020:8080"
+    depends_on:
+      - gateway_db
+      - rabbitmq_master
+  reports_app:
+    build: ./reports-app
+    command: mvn spring-boot:run -Drun.profiles=dev
+    volumes:
+      - ./reports-app:/app
+    ports:
+      - "9030:8080"
+    depends_on:
+      - reports_db
+      - rabbitmq_master
+  notifications_app:
+    build: ./notifications-app
+    command: mvn spring-boot:run -Drun.profiles=dev
+    volumes:
+      - ./notifications-app:/app
+    ports:
+      - "9040:8080"
+    depends_on:
+      - notifications_db
+      - rabbitmq_master
+      - mail_server

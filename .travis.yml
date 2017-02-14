@@ -8,4 +8,5 @@ install:
 script:
   - ls -lah
   - docker-compose version
-  - docker-compose ps
+  - run-build.sh
+  - run-ci.sh
