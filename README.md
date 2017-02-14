@@ -44,3 +44,9 @@ done
 ![Architecture Diagram](https://gitlab.com/guide-apps/amqp-failover-consistency/raw/master/doc/architecture-diagram.png)
 
 Some improvements, features or challenges to this project? Send me an [e-mail](email:gabrielmassote@gmail.com) or a comment.
+
+## Reference
+
+## Tools
+
+[Kompose: a tool to go from Docker-compose to Kubernetes](http://blog.kubernetes.io/2016/11/kompose-tool-go-from-docker-compose-to-kubernetes.html)

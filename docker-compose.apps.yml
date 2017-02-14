@@ -2,7 +2,7 @@ version: '2'
 services:
   checkout_app:
     build: ./checkout-app
-    command: sh -c "mvn clean package && java -jar target/checkout-app.jar"
+    command: sh -c "mvn clean package -Dmaven.test.skip=true && mvn spring-boot:run"
     volumes:
       - ./checkout-app:/app
     ports:
@@ -10,15 +10,15 @@ services:
     depends_on:
       - checkout_db
       - rabbitmq_master
-  delivery_app:
-    build: ./delivery-app
-    command: sh -c "mvn clean package && java -jar target/delivery-app.jar"
+  gateway_app:
+    build: ./gateway-app
+    command: sh -c "mvn clean package && java -jar target/gateway-app.jar"
     volumes:
-      - ./delivery-app:/app
+      - ./gateway-app:/app
     ports:
       - "9020:8080"
     depends_on:
-      - delivery_db
+      - gateway_db
       - rabbitmq_master
   reports_app:
     build: ./reports-app

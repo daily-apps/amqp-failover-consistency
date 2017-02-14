@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: ci
+  application:
+    name: '@artifactId@'
+    version: '@project.version@'
+    
+#########    
+# QUEUE #
+#########
+messaging: 
+  amqp:
+    payment: 
+      topic: payment-topic
+      routing-key:
+        payment-submitted: payment.submitted
+      queue:
+        delivery: payment-delivery-flow
+        report: payment-report-flow
+        notification: payment-notification-flow
+
+#################    
+# DB MIGRATIONS #
+#################       
+liquibase:
+  change-log: "classpath:db/master-changelog.xml"

@@ -7,7 +7,7 @@ services:
       - POSTGRES_PASSWORD=amqpadmin
     ports:
       - "54321:5432"
-  delivery_db:
+  gateway_db:
     image: postgres
     environment:
       - POSTGRES_USER=amqpadmin
@@ -34,7 +34,8 @@ services:
     environment:
       - RABBITMQ_ERLANG_COOKIE="clusteramqp-01-2017"
     ports:
-      - "8080:15672"
+      - "18080:15672"
+      - "15672:5672"
     depends_on:
       - rabbitmq_slave
   rabbitmq_slave:
@@ -43,8 +44,10 @@ services:
     environment:
       - RABBITMQ_ERLANG_COOKIE="clusteramqp-01-2017"
     ports:
-      - "9080:15672"
+      - "28080:15672"
+      - "25672:5672"
   mail_server:
     image: schickling/mailcatcher
     ports:
       - "1080:1080"
+      - "1025:1025"
