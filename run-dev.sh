@@ -6,7 +6,7 @@ if ! which docker; then
 fi
 
 # Up all cluster of rabbits, postgres, mail server and apps
-docker-compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+docker-compose -f docker-compose.yml up -d
 docker-compose logs &
 sleep 15
 
@@ -17,4 +17,8 @@ docker-compose exec rabbitmq_master rabbitmqctl set_policy ha-all "^payment\-" '
 # Enable plugin to migrate messagens between queues
 docker-compose exec rabbitmq_master rabbitmq-plugins enable rabbitmq_shovel rabbitmq_shovel_management
 
-docker-compose ps
+if [[ $# -eq 0 ]] ; then
+    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --no-recreate
+else
+    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --no-recreate $1
+fi

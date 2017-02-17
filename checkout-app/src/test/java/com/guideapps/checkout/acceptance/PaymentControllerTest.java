@@ -113,11 +113,10 @@ public class PaymentControllerTest {
 	public void update() throws Exception {
 		final Payment paymentDB = payments.get(0);
 		final Payment paymentToUpdate = Payment.builder()
-				.id(paymentDB.getId()) // change form object to discard id for update
 				.productId(1234l)
 				.sellerId(1234l)
 				.quantity(1234)
-				.status(PaymentStatus.APPROVED)
+				.status(PaymentStatus.SUBMITTED)
 				.build();	
 		
 		given()

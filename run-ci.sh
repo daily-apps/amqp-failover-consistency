@@ -6,7 +6,7 @@ if ! which docker; then
 fi
 
 # After docker images builds, run acceptance tests
-docker-compose -f docker-compose.yml up -d
+docker-compose -f docker-compose.yml up -d --no-recreate
 docker-compose logs &
 sleep 15
 
@@ -20,9 +20,10 @@ docker-compose exec rabbitmq_master rabbitmq-plugins enable rabbitmq_shovel rabb
 # Run acceptance tests after docker images builds, and env steup
 # Better Practice: change all 4 acceptance tests for cucumber test, like:
 #   docker-compose -f docker-compose.yml -f docker-compose.ci.yml run cucumber-acceptance-test
-docker-compose -f docker-compose.yml -f docker-compose.ci.yml run checkout_app
-docker-compose -f docker-compose.yml -f docker-compose.ci.yml run gateway_app
-docker-compose -f docker-compose.yml -f docker-compose.ci.yml run reports_app
-docker-compose -f docker-compose.yml -f docker-compose.ci.yml run notifications_app
+if [[ $# -eq 0 ]] ; then
+    docker-compose -f docker-compose.yml -f docker-compose.ci.yml up --no-recreate
+else
+    docker-compose -f docker-compose.yml -f docker-compose.ci.yml up --no-recreate $1
+fi
 
 docker-compose down

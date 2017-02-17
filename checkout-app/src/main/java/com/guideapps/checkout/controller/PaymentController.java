@@ -37,15 +37,15 @@ public class PaymentController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Payment> create(@Valid @RequestBody final Payment payment) throws Exception {
-		log.info(String.format("Creating payment: %s", payment));
+	public ResponseEntity<Payment> create(@Valid @RequestBody final Payment paymentForm) throws Exception {
+		log.info(String.format("Creating payment: %s", paymentForm));
 		
 		// Use PaymetForm or another builder helper that supports copy properties from reference object		
 		final Payment paymentSubmitted = Payment.builder()
-				.status(payment.getStatus())
-				.productId(payment.getProductId())
-				.sellerId(payment.getSellerId())
-				.quantity(payment.getQuantity())
+				.productId(paymentForm.getProductId())
+				.sellerId(paymentForm.getSellerId())
+				.quantity(paymentForm.getQuantity())
+				.status(paymentForm.getStatus())
 				.build();
 		
 		final Payment paymentSaved = submitPayment.process(paymentSubmitted);		
@@ -63,12 +63,21 @@ public class PaymentController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-	public Payment update(@PathVariable final Long id, @RequestBody final Payment payment) throws Exception {
+	public Payment update(@PathVariable final Long id, @RequestBody final Payment paymentForm) throws Exception {
 		log.info(String.format("Update payment with id:%d...", id));
 		
-		return OptionalResource.from(Optional.ofNullable(repository.findOne(id))).ifPresent(p -> {
-			return repository.save(payment);
-		});
+		// Use PaymetForm or another builder helper that supports copy properties from reference object		
+		final Payment paymentToUpdate = Payment.builder()
+				.id(id)
+				.productId(paymentForm.getProductId())
+				.sellerId(paymentForm.getSellerId())
+				.quantity(paymentForm.getQuantity())
+				.status(paymentForm.getStatus())
+				.build();
+		
+		return OptionalResource
+				.from(Optional.ofNullable(repository.findOne(paymentToUpdate.getId())))
+				.ifPresent(p -> repository.save(paymentToUpdate));
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

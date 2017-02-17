@@ -1,13 +1,14 @@
 package com.guideapps.reports;
 
-/**
- * Hello world!
- *
- */
-public class ReportsApplication 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello reports-app ;)" );
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@SpringBootApplication
+@ComponentScan("com.guideapps.reports.*")
+public class ReportsApplication {
+	
+    public static void main( String[] args ) {
+        SpringApplication.run(ReportsApplication.class, args);
     }
 }
