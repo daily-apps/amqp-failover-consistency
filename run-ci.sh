@@ -21,9 +21,12 @@ docker-compose exec rabbitmq_master rabbitmq-plugins enable rabbitmq_shovel rabb
 # Better Practice: change all 4 acceptance tests for cucumber test, like:
 #   docker-compose -f docker-compose.yml -f docker-compose.ci.yml run cucumber-acceptance-test
 if [[ $# -eq 0 ]] ; then
-    docker-compose -f docker-compose.yml -f docker-compose.ci.yml up --no-recreate
+    docker-compose -f docker-compose.yml -f docker-compose.ci.yml run checkout_app
+    docker-compose -f docker-compose.yml -f docker-compose.ci.yml run gateway_app
+    docker-compose -f docker-compose.yml -f docker-compose.ci.yml run notifications_app
+    docker-compose -f docker-compose.yml -f docker-compose.ci.yml run reports_app
 else
-    docker-compose -f docker-compose.yml -f docker-compose.ci.yml up --no-recreate $1
+    docker-compose -f docker-compose.yml -f docker-compose.ci.yml run $1
 fi
 
 docker-compose down
