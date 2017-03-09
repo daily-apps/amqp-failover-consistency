@@ -18,9 +18,11 @@ public class ApprovePaymentsConsumer {
 	
 	@RabbitHandler
 	public void receiveMessage(Payment paymentSubmitted) throws Exception {
-		log.info(String.format("Starting payment approvement for: %s", paymentSubmitted));
-        
-		approvePaymentsService.approve(paymentSubmitted);
+		log.info(String.format("Payment=%s approvement starting...", paymentSubmitted));
+
+		final Payment paymentApproved = approvePaymentsService.approve(paymentSubmitted);
+
+		log.info(String.format("Payment=%s approved!", paymentApproved));
     }
 
 }

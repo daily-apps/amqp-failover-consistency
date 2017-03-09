@@ -1,16 +1,15 @@
 package com.guideapps.gateway.domain.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.guideapps.gateway.client.PaypalPaymentClient;
 import com.guideapps.gateway.domain.model.Payment;
 import com.guideapps.gateway.domain.model.PaymentStatus;
 import com.guideapps.gateway.domain.repository.PaymentRepository;
+import lombok.extern.java.Log;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
+@Log
 @Service
 public class ApprovePaymentsService {
 
@@ -40,10 +39,12 @@ public class ApprovePaymentsService {
 		.build();
 		
 		final Payment paymentSubmittedSaved = paymentRepository.save(paymentSubmittedToSave);
+		log.info(String.format("Payment=[%s] submitted saved...", paymentSubmittedSaved));
 
         // Paypal Client is fake, and will return random tokens based on paymentId
 		final String transactionToken = paypalPaymentClient.capture(paymentSubmittedSaved);
-		
+		log.info(String.format("Payment=[%s] captured by PayPal with transactionToken=%s...", paymentSubmittedSaved, transactionToken));
+
 		// Save payment with APPROVED and paypal tokens
 		final Payment paymentApprovedToSave = Payment.builder()
 			.id(paymentSubmittedSaved.getId())
@@ -53,9 +54,10 @@ public class ApprovePaymentsService {
 			.gatewayTransactionToken(transactionToken)
 			.status(PaymentStatus.APPROVED)
 			.build();
-		
+
 		final Payment paymentApprovedSaved = paymentRepository.save(paymentApprovedToSave);
-		
+		log.info(String.format("Payment=[%s] approved saved...", paymentApprovedSaved));
+
 		// Send notification to payment-topic with approve notification
 		rabbitTemplate.convertAndSend("payment-topic", "payment.approved", paymentApprovedSaved);
 		
