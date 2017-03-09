@@ -22,7 +22,7 @@
 			<column name="quantity" type="INT">
 				<constraints nullable="false" />
 			</column>
-			<column name="status" type="VARCHAR(255)">
+			<column name="status" type="INT">
 				<constraints nullable="false" />
 			</column>
 			<column name="gateway_transaction_token" type="VARCHAR(255)">
