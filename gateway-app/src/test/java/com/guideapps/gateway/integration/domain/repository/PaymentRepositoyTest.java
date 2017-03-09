@@ -4,6 +4,7 @@ import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 import com.guideapps.gateway.config.TestingDatabaseContext;
 import com.guideapps.gateway.domain.model.Payment;
+import com.guideapps.gateway.domain.model.PaymentStatus;
 import com.guideapps.gateway.domain.repository.PaymentRepository;
 import com.guideapps.gateway.fixture.PaymentFixture;
 import org.junit.Before;
@@ -17,6 +18,7 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +45,7 @@ public class PaymentRepositoyTest {
     @Test
     public void findAll() {
         final List<Payment> payments = repository.findAll();
-        assertThat(payments.size()).isEqualTo(2);
+        assertThat(payments.size()).isEqualTo(5);
     }
 
     @Test
@@ -57,14 +59,20 @@ public class PaymentRepositoyTest {
         assertThat(paymentSaved.getQuantity()).isEqualTo(payment.getQuantity());
     }
 
-    private void prepareDatabase() {
-        final Payment paymentOne = Fixture.from(Payment.class).gimme("new");
-        final Payment paymentTwo = Fixture.from(Payment.class).gimme("new");
-        final Payment paymentOneSaved = repository.save(paymentOne);
-        final Payment paymentTwoSaved = repository.save(paymentTwo);
+    @Test
+    public void countByStatus() {
+        assertThat(repository.countByStatus(PaymentStatus.SUBMITTED)).isEqualTo(2);
+        assertThat(repository.countByStatus(PaymentStatus.APPROVED)).isEqualTo(3);
+    }
 
-        assertThat(paymentOne).isEqualTo(paymentOneSaved);
-        assertThat(paymentTwo).isEqualTo(paymentTwoSaved);
+    private void prepareDatabase() {
+        final List<Payment> payments = new ArrayList<>();
+        payments.addAll(Fixture.from(Payment.class).gimme(2, "submitted"));
+        payments.addAll(Fixture.from(Payment.class).gimme(3, "approved"));
+
+        assertThat(payments.size()).isEqualTo(5);
+
+        repository.save(payments);
     }
 
 }

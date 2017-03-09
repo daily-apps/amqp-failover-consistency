@@ -26,9 +26,17 @@ public class PaymentFixture implements TemplateLoader {
 		}});
 		
 		Fixture.of(Payment.class).addTemplate("valid").inherits("new", new Rule(){{
-		    add("id", 1l);
+			add("id", 1l);
 		}});
-		
+
+		Fixture.of(Payment.class).addTemplate("submitted").inherits("random", new Rule(){{
+			add("status", PaymentStatus.SUBMITTED);
+		}});
+
+		Fixture.of(Payment.class).addTemplate("approved").inherits("random", new Rule(){{
+			add("status", PaymentStatus.APPROVED);
+		}});
+
 		Fixture.of(Payment.class).addTemplate("paypal").inherits("valid", new Rule(){{
             add("status", PaymentStatus.APPROVED);
 			add("gatewayTransactionToken", "T6t+D1G4chCGzdl4Gg1pyYv0Q60");

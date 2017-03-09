@@ -1,11 +1,13 @@
 package com.guideapps.gateway.domain.repository;
 
+import com.guideapps.gateway.domain.model.Payment;
+import com.guideapps.gateway.domain.model.PaymentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.guideapps.gateway.domain.model.Payment;
-
 @Repository
-public interface PaymentRepository extends JpaRepository<Payment, Long> { 
-	
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
+
+    Long countByStatus(final PaymentStatus status);
+
 }
