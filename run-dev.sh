@@ -5,6 +5,9 @@ if ! which docker; then
     exit 1;
 fi
 
+# Build images
+docker-compose -f docker-compose.yml -f docker-compose.ci.yml build
+
 # Up all cluster of rabbits, postgres, mail server and apps
 docker-compose -f docker-compose.yml up -d
 docker-compose logs &

@@ -45,7 +45,6 @@ public class PaymentController {
 				.productId(paymentForm.getProductId())
 				.sellerId(paymentForm.getSellerId())
 				.quantity(paymentForm.getQuantity())
-				.status(paymentForm.getStatus())
 				.build();
 		
 		final Payment paymentSaved = submitPayment.process(paymentSubmitted);		
@@ -72,7 +71,6 @@ public class PaymentController {
 				.productId(paymentForm.getProductId())
 				.sellerId(paymentForm.getSellerId())
 				.quantity(paymentForm.getQuantity())
-				.status(paymentForm.getStatus())
 				.build();
 		
 		return OptionalResource

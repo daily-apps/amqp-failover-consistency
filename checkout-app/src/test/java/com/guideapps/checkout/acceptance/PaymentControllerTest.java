@@ -22,7 +22,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.guideapps.checkout.domain.model.Payment;
-import com.guideapps.checkout.domain.model.PaymentStatus;
 import com.guideapps.checkout.domain.repository.PaymentRepository;
 
 import br.com.six2six.fixturefactory.Fixture;
@@ -91,8 +90,7 @@ public class PaymentControllerTest {
 			.statusCode(HttpStatus.SC_CREATED)
 			.body("productId", equalTo(Integer.valueOf(newPayment.getProductId().toString())))
 			.body("sellerId", equalTo(Integer.valueOf(newPayment.getSellerId().toString())))
-			.body("quantity", equalTo(Integer.valueOf(newPayment.getQuantity().toString())))
-			.body("status", equalTo(newPayment.getStatus().toString()));
+			.body("quantity", equalTo(Integer.valueOf(newPayment.getQuantity().toString())));
 	}
 	
 	@Test
@@ -116,7 +114,6 @@ public class PaymentControllerTest {
 				.productId(1234l)
 				.sellerId(1234l)
 				.quantity(1234)
-				.status(PaymentStatus.SUBMITTED)
 				.build();	
 		
 		given()
@@ -130,8 +127,7 @@ public class PaymentControllerTest {
 			.body("id", equalTo(Integer.valueOf(paymentDB.getId().toString())))
 			.body("productId", equalTo(Integer.valueOf(paymentToUpdate.getProductId().toString())))
 			.body("sellerId", equalTo(Integer.valueOf(paymentToUpdate.getSellerId().toString())))
-			.body("quantity", equalTo(Integer.valueOf(paymentToUpdate.getQuantity().toString())))
-			.body("status", equalTo(paymentToUpdate.getStatus().toString()));
+			.body("quantity", equalTo(Integer.valueOf(paymentToUpdate.getQuantity().toString())));
 	}
 	
 	@Test

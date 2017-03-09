@@ -23,7 +23,7 @@ import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes=TestingDatabaseContext.class, initializers=ConfigFileApplicationContextInitializer.class) // not using DataJpaTest because we need only beans at storages packages
+@ContextConfiguration(classes=TestingDatabaseContext.class, initializers=ConfigFileApplicationContextInitializer.class)
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // for isolated/clean database tests 
 public class PaymentRepositoyTest {
 
@@ -44,6 +44,17 @@ public class PaymentRepositoyTest {
 	public void findAll() {
 		final List<Payment> payments = repository.findAll();
 		assertThat(payments.size()).isEqualTo(2);		
+	}
+	
+	@Test
+	public void save() {
+		final Payment payment = Fixture.from(Payment.class).gimme("new");
+		final Payment paymentSaved = repository.save(payment);
+		
+		assertThat(paymentSaved.getId()).isNotNull();
+		assertThat(paymentSaved.getProductId()).isEqualTo(payment.getProductId());
+		assertThat(paymentSaved.getSellerId()).isEqualTo(payment.getSellerId());
+		assertThat(paymentSaved.getQuantity()).isEqualTo(payment.getQuantity());
 	}
 	
 	private void prepareDatabase() {

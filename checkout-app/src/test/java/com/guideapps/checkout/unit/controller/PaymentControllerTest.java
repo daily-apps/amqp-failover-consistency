@@ -27,7 +27,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.guideapps.checkout.controller.PaymentController;
 import com.guideapps.checkout.domain.model.Payment;
-import com.guideapps.checkout.domain.model.PaymentStatus;
 import com.guideapps.checkout.domain.repository.PaymentRepository;
 import com.guideapps.checkout.domain.service.SubmitPaymentService;
 
@@ -100,7 +99,7 @@ public class PaymentControllerTest {
 	public void update() throws Exception {
 		final Payment paymentDB = Fixture.from(Payment.class).gimme("valid");
 		final Payment paymentUpdated = Fixture.from(Payment.class).gimme("valid", new Rule(){{
-			add("status", PaymentStatus.APPROVED);
+			add("quantity", 72);
 		}});
 		
 		when(paymentRepositoryMock.findOne(paymentDB.getId())).thenReturn(paymentDB);

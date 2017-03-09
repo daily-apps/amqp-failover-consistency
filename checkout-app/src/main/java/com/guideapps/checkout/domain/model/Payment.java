@@ -38,8 +38,4 @@ public class Payment implements Serializable {
 	@Column(nullable = false)
 	private Integer quantity;
 	
-	@NotNull
-	@Column(nullable = false)
-    private PaymentStatus status;
-	
 } 
