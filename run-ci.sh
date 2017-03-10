@@ -30,7 +30,7 @@ if [[ $# -eq 0 ]] ; then
 
     for app in "${apps[@]}"
     do
-        docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run $app
+        docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run --no-deps $app
     done
 else
     docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run --no-deps $1
