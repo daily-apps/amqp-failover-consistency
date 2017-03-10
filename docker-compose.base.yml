@@ -1,0 +1,53 @@
+version: '2'
+services:
+  checkout_db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=amqpadmin
+      - POSTGRES_PASSWORD=amqpadmin
+    ports:
+      - "54321:5432"
+  gateway_db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=amqpadmin
+      - POSTGRES_PASSWORD=amqpadmin
+    ports:
+      - "54322:5432"
+  reports_db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=amqpadmin
+      - POSTGRES_PASSWORD=amqpadmin
+    ports:
+      - "54323:5432"
+  notifications_db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=amqpadmin
+      - POSTGRES_PASSWORD=amqpadmin
+    ports:
+      - "54324:5432"
+  rabbitmq_master:
+    image: rabbitmq:3-management
+    hostname: rabbitmq_master
+    environment:
+      - RABBITMQ_ERLANG_COOKIE="clusteramqp-01-2017"
+    ports:
+      - "18080:15672"
+      - "15672:5672"
+    depends_on:
+      - rabbitmq_slave
+  rabbitmq_slave:
+    image: rabbitmq:3-management
+    hostname: rabbitmq_slave
+    environment:
+      - RABBITMQ_ERLANG_COOKIE="clusteramqp-01-2017"
+    ports:
+      - "28080:15672"
+      - "25672:5672"
+  mail_server:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"

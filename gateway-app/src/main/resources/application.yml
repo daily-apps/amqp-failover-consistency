@@ -24,6 +24,8 @@ spring:
     url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE;
     driver-class-name: org.h2.Driver
     platform: h2
+  hibernate:
+      show_sql: true
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: false

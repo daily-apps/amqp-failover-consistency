@@ -6,10 +6,10 @@ if ! which docker; then
 fi
 
 # Build images
-docker-compose -f docker-compose.yml -f docker-compose.ci.yml build
+docker-compose -f docker-compose.base.yml -f docker-compose.yml build
 
 # Up all cluster of rabbits, postgres, mail server and apps
-docker-compose -f docker-compose.yml up -d
+docker-compose -f docker-compose.base.yml up -d
 docker-compose logs &
 sleep 15
 
@@ -21,7 +21,7 @@ docker-compose exec rabbitmq_master rabbitmqctl set_policy ha-all "^payment\-" '
 docker-compose exec rabbitmq_master rabbitmq-plugins enable rabbitmq_shovel rabbitmq_shovel_management
 
 if [[ $# -eq 0 ]] ; then
-    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --no-recreate
+    docker-compose -f docker-compose.base.yml -f docker-compose.dev.yml up
 else
-    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --no-recreate $1
+    docker-compose -f docker-compose.base.yml -f docker-compose.dev.yml up --no-deps -d
 fi
