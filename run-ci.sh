@@ -31,4 +31,4 @@ else
     docker-compose -f docker-compose.base.yml -f docker-compose.yml up --no-deps $1
 fi
 
-docker-compose -f docker-compose.base.yml -f docker-compose.yml down
+# docker-compose -f docker-compose.base.yml -f docker-compose.yml down

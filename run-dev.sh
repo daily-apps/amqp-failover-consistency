@@ -23,5 +23,5 @@ docker-compose exec rabbitmq_master rabbitmq-plugins enable rabbitmq_shovel rabb
 if [[ $# -eq 0 ]] ; then
     docker-compose -f docker-compose.base.yml -f docker-compose.dev.yml up
 else
-    docker-compose -f docker-compose.base.yml -f docker-compose.dev.yml up --no-deps -d
+    docker-compose -f docker-compose.base.yml -f docker-compose.dev.yml up --no-deps $1
 fi
