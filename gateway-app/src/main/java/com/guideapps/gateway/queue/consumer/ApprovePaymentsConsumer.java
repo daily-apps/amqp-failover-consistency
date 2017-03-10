@@ -10,7 +10,7 @@ import com.guideapps.gateway.domain.service.ApprovePaymentsService;
 import lombok.extern.java.Log;
 
 @Log
-@RabbitListener(queues={"${messaging.amqp.queues.payment-gateway}"})
+@RabbitListener(queues={"${messaging.amqp.queue.payment-gateway}"})
 public class ApprovePaymentsConsumer {
 
 	@Autowired

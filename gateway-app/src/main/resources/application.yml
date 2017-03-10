@@ -34,3 +34,9 @@ spring:
 liquibase:
   enabled: true
   change-log: "classpath:/db/master-changelog.xml"
+
+messaging:
+  amqp:
+    payment:
+      queue:
+        gateway: payment-gateway-flow
