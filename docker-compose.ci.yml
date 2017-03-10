@@ -4,9 +4,6 @@ services:
     extends:
       file: docker-compose.apps.yml
       service: checkout_app
-    command: mvn spring-boot:run -Drun.profiles=dev
-    volumes:
-      - ./checkout-app:/app
     depends_on:
       - checkout_db
       - rabbitmq_master
@@ -14,9 +11,6 @@ services:
     extends:
       file: docker-compose.apps.yml
       service: gateway_app
-    command: mvn spring-boot:run -Drun.profiles=dev
-    volumes:
-      - ./gateway-app:/app
     depends_on:
       - gateway_db
       - rabbitmq_master
@@ -24,9 +18,6 @@ services:
     extends:
       file: docker-compose.apps.yml
       service: reports_app
-    command: mvn spring-boot:run -Drun.profiles=dev
-    volumes:
-      - ./reports-app:/app
     depends_on:
       - reports_db
       - rabbitmq_master
@@ -34,9 +25,6 @@ services:
     extends:
       file: docker-compose.apps.yml
       service: notifications_app
-    command: mvn spring-boot:run -Drun.profiles=dev
-    volumes:
-      - ./notifications-app:/app
     depends_on:
       - notifications_db
       - rabbitmq_master

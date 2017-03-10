@@ -9,9 +9,6 @@ services:
         - resources/docker/.env.dev
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://checkout_db:5432/amqpadmin
-    depends_on:
-      - checkout_db
-      - rabbitmq_master
   gateway_app:
     build: ./gateway-app
     command: sh -c "mvn -Dtest=**.acceptance.**.*Test clean package -Drun.profiles=ci"
@@ -21,9 +18,6 @@ services:
       - resources/docker/.env.dev
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://gateway_db:5432/amqpadmin
-    depends_on:
-      - gateway_db
-      - rabbitmq_master
   reports_app:
     build: ./reports-app
     command: sh -c "mvn -Dtest=**.acceptance.**.*Test clean package -Drun.profiles=ci"
@@ -33,9 +27,6 @@ services:
         - resources/docker/.env.dev
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://reports_db:5432/amqpadmin
-    depends_on:
-      - reports_db
-      - rabbitmq_master
   notifications_app:
     build: ./notifications-app
     command: sh -c "mvn -Dtest=**.acceptance.**.*Test clean package -Drun.profiles=ci"
@@ -45,7 +36,3 @@ services:
         - resources/docker/.env.dev
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://notifications_db:5432/amqpadmin
-    depends_on:
-      - notifications_db
-      - rabbitmq_master
-      - mail_server

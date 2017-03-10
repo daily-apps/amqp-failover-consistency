@@ -6,4 +6,4 @@ if ! which docker; then
 fi
 
 # Up all cluster of rabbits, postgres, mail server and apps
-docker-compose -f docker-compose.base.yml -f docker-compose.yml build
+docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml build

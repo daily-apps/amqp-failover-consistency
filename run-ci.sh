@@ -5,10 +5,10 @@ if ! which docker; then
     exit 1;
 fi
 
-docker-compose -f docker-compose.base.yml -f docker-compose.yml down
+docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml down
 
 # Build images
-docker-compose -f docker-compose.base.yml -f docker-compose.yml build
+docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml build
 
 # After docker images builds, up base services
 docker-compose -f docker-compose.base.yml up -d
@@ -24,11 +24,16 @@ docker-compose -f docker-compose.base.yml exec rabbitmq_master rabbitmq-plugins 
 
 # Run acceptance tests after docker images builds, and env steup
 # Better Practice: change all 4 acceptance tests for cucumber test, like:
-#   docker-compose -f docker-compose.yml -f docker-compose.ci.yml run cucumber-acceptance-test
+#   docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run cucumber-acceptance-test
 if [[ $# -eq 0 ]] ; then
-    docker-compose -f docker-compose.base.yml -f docker-compose.yml up
+    declare -a apps=("checkout_app" "gateway_app")
+
+    for app in "${apps[@]}"
+    do
+        docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run $app
+    done
 else
-    docker-compose -f docker-compose.base.yml -f docker-compose.yml up --no-deps $1
+    docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run --no-deps $1
 fi
 
-# docker-compose -f docker-compose.base.yml -f docker-compose.yml down
+# docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml down
