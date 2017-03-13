@@ -8,9 +8,11 @@ import com.guideapps.gateway.domain.model.Payment;
 import com.guideapps.gateway.domain.service.ApprovePaymentsService;
 
 import lombok.extern.java.Log;
+import org.springframework.stereotype.Component;
 
 @Log
-@RabbitListener(queues={"${messaging.amqp.queue.payment-gateway}"})
+@Component
+@RabbitListener(queues={"${messaging.amqp.payment.queue.gateway}"})
 public class ApprovePaymentsConsumer {
 
 	@Autowired

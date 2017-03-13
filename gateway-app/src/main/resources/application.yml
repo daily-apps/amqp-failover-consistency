@@ -39,4 +39,4 @@ messaging:
   amqp:
     payment:
       queue:
-        gateway: payment-gateway-flow
+        gateway: payment-flow-gateway-app
