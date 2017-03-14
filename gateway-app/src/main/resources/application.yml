@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: '@artifactId@'
+    version: '@project.version@'
+  rabbitmq:
+    host: rabbitmq_master
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      concurrency: 3
+      max-concurrency: 5
+      retry:
+        enabled: true
+        initial-interval: 2000
+        max-attempts: 2
+        multiplier: 1.5
+        max-interval: 5000
+
+###########
+# STORAGE #
+###########
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE;
+    driver-class-name: org.h2.Driver
+    platform: h2
+  hibernate:
+      show_sql: true
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+
+# STORAGE MIGRATIONS
+liquibase:
+  enabled: true
+  change-log: "classpath:/db/master-changelog.xml"
+
+messaging:
+  amqp:
+    payment:
+      queue:
+        gateway: payment-flow-gateway-app

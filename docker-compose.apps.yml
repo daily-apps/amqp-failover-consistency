@@ -2,42 +2,37 @@ version: '2'
 services:
   checkout_app:
     build: ./checkout-app
-    command: sh -c "mvn clean package && java -jar target/checkout-app.jar"
-    volumes:
-      - ./checkout-app:/app
+    command: sh -c "mvn -Dtest=**.acceptance.**.*Test clean package -Drun.profiles=ci"
     ports:
       - "9010:8080"
-    depends_on:
-      - checkout_db
-      - rabbitmq_master
-  delivery_app:
-    build: ./delivery-app
-    command: sh -c "mvn clean package && java -jar target/delivery-app.jar"
-    volumes:
-      - ./delivery-app:/app
+    env_file:
+        - resources/docker/.env.dev
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://checkout_db:5432/amqpadmin
+  gateway_app:
+    build: ./gateway-app
+    command: sh -c "mvn -Dtest=**.acceptance.**.*Test clean package -Drun.profiles=ci"
     ports:
       - "9020:8080"
-    depends_on:
-      - delivery_db
-      - rabbitmq_master
+    env_file:
+      - resources/docker/.env.dev
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://gateway_db:5432/amqpadmin
   reports_app:
     build: ./reports-app
-    command: sh -c "mvn clean package && java -jar target/reports-app.jar"
-    volumes:
-      - ./reports-app:/app
+    command: sh -c "mvn -Dtest=**.acceptance.**.*Test clean package -Drun.profiles=ci"
     ports:
       - "9030:8080"
-    depends_on:
-      - reports_db
-      - rabbitmq_master
+    env_file:
+        - resources/docker/.env.dev
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://reports_db:5432/amqpadmin
   notifications_app:
     build: ./notifications-app
-    command: sh -c "mvn clean package && java -jar target/notifications-app.jar"
-    volumes:
-      - ./notifications-app:/app
+    command: sh -c "mvn -Dtest=**.acceptance.**.*Test clean package -Drun.profiles=ci"
     ports:
       - "9040:8080"
-    depends_on:
-      - notifications_db
-      - rabbitmq_master
-      - mail_server
+    env_file:
+        - resources/docker/.env.dev
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://notifications_db:5432/amqpadmin
