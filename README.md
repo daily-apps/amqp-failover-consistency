@@ -8,13 +8,13 @@ To simulate a purchase scenarios, this project contains 4 apps running Jetty web
 - **Reports App**: *store info* about purchase to generate business reports
 - **Notifications App**: sent email to users *about purchase status* (bought, dispatched, delivered)
 
-***Requirements***
+*Requirements:*
 - Docker and Docker compose
 - Java8 docker image
 - PostegreSQL docker image
 - RabbitMQ docker image
 
-***Techs***
+*Technologies:*
 - Java8 and SpringBoot
 - PostegreSQL for storage
 - RabbitMQ for AMQP messaging
