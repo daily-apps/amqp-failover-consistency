@@ -14,6 +14,11 @@ To simulate a purchase scenarios, this project contains 4 apps running Jetty web
 - PostegreSQL docker image
 - RabbitMQ docker image
 
+***Techs***
+- Java8 and SpringBoot
+- PostegreSQL for storage
+- RabbitMQ for AMQP messaging
+
 ### 1. Run everything
 
 Use [Docker Compose](https://docs.docker.com/engine/installation/) to run all apps and third dependencies. Compose file will up 4 apps, 1 PostgreSQL database and 1 cluster of Rabbitmq AMQP servers:
@@ -53,7 +58,6 @@ done
 Some improvements, features or challenges to this project? Send me an [e-mail](email:gabrielmassote@gmail.com) or a comment.
 
 ### 4. Contributing
----
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
@@ -64,6 +68,5 @@ Some improvements, features or challenges to this project? Send me an [e-mail](e
 Approvers will use the [Contributing Guide]() to `Approve` or `Reject` all Pull Requests.
 
 ### 5. Backlog, Bugs and Feedback
----
 
 For backlog, bugs, questions and discussions please use the [Issues]().
