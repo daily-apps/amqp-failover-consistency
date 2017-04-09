@@ -8,12 +8,19 @@ To simulate a purchase scenarios, this project contains 4 apps running Jetty web
 - **Reports App**: *store info* about purchase to generate business reports
 - **Notifications App**: sent email to users *about purchase status* (bought, dispatched, delivered)
 
+***Requirements***
+- Docker and Docker compose
+- Java8 docker image
+- PostegreSQL docker image
+- RabbitMQ docker image
+
 ### 1. Run everything
 
 Use [Docker Compose](https://docs.docker.com/engine/installation/) to run all apps and third dependencies. Compose file will up 4 apps, 1 PostgreSQL database and 1 cluster of Rabbitmq AMQP servers:
 
 ```bash
-$ docker-compose up
+# Will run apps and third dependencies using Docker Compose
+$ ./run-dev.sh
 ```
 
 *See at the bottom of this page the Architecture Diagram about communications with all parts of system.*
@@ -29,7 +36,7 @@ do
     curl -s "http://localhost:900$i/status"
 done
 
-# if it displays 4 lines with 'health' text, it works
+# if it displays 4 lines with 'ok' text, it works
 ```
 
 `Fine! Lets test some schenarios`:
@@ -44,3 +51,19 @@ done
 ![Architecture Diagram](https://gitlab.com/guide-apps/amqp-failover-consistency/raw/master/doc/architecture-diagram.png)
 
 Some improvements, features or challenges to this project? Send me an [e-mail](email:gabrielmassote@gmail.com) or a comment.
+
+### 4. Contributing
+---
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+Approvers will use the [Contributing Guide]() to `Approve` or `Reject` all Pull Requests.
+
+### 5. Backlog, Bugs and Feedback
+---
+
+For backlog, bugs, questions and discussions please use the [Issues]().
